@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/saxflow/static/css/main.b9e50835.css",
-    "main.js": "/saxflow/static/js/main.a28f0cba.js",
+    "main.js": "/saxflow/static/js/main.af83bf41.js",
     "static/js/453.2d29ad6e.chunk.js": "/saxflow/static/js/453.2d29ad6e.chunk.js",
     "index.html": "/saxflow/index.html",
     "main.b9e50835.css.map": "/saxflow/static/css/main.b9e50835.css.map",
-    "main.a28f0cba.js.map": "/saxflow/static/js/main.a28f0cba.js.map",
+    "main.af83bf41.js.map": "/saxflow/static/js/main.af83bf41.js.map",
     "453.2d29ad6e.chunk.js.map": "/saxflow/static/js/453.2d29ad6e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b9e50835.css",
-    "static/js/main.a28f0cba.js"
+    "static/js/main.af83bf41.js"
   ]
 }
