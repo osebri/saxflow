@@ -23,7 +23,7 @@ const LibraryPage = () => {
 
   const musicSheets = [
     {
-      path: `${process.env.PUBLIC_URL}/hymntun.pdf`,
+      path: `${process.env.PUBLIC_URL}/saxflow/hymntun.pdf`,
       title: 'Sheet 1',
       author: 'Author 1',
       preview: 'sh2.jpg',
