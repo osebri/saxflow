@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import anime from 'animejs';
 
-const CircleRectangleAnimation = () => {
-  const location = useLocation();
-  const { tutorial } = location.state || {};
+const CircleRectangleAnimation = ({ tutorial }) => {
   const [volume, setVolume] = useState(1);
 
   useEffect(() => {
