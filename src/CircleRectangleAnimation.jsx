@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import anime from 'animejs';
-import './CircleRectangleAnimation.css';
 
-const CircleRectangleAnimation = ({ tutorial }) => {
-  const { title, author, notes, bpm } = tutorial;
-  const [volume, setVolume] = useState(50); // Default volume level
+const CircleRectangleAnimation = () => {
+  const location = useLocation();
+  const { tutorial } = location.state || {};
+  const [volume, setVolume] = useState(1);
 
   useEffect(() => {
-    if (notes.length > 0) {
-      animateNotes(notes);
+    if (tutorial && tutorial.notes) {
+      animateNotes(tutorial.notes);
     }
-  }, [notes, bpm]);
+  }, [tutorial]);
 
   const animateRectangle = (rectangle, targetElement, speed, disappearanceDuration, key) => {
     const { top, left, width: targetWidth } = targetElement.getBoundingClientRect();
     const initialWidth = rectangle.getBoundingClientRect().width;
 
-    // Calculate the distance to move
     const distance = left + (targetWidth / 2) - rectangle.getBoundingClientRect().left - 1800;
-    // Calculate the duration for movement based on the speed
     const movementDuration = Math.abs(distance) / speed;
 
-    // Move the rectangle towards the target element
     anime({
       targets: rectangle,
       translateX: distance,
@@ -32,33 +30,27 @@ const CircleRectangleAnimation = ({ tutorial }) => {
         anime({
           targets: rectangle,
           width: [initialWidth, 0],
-          duration: disappearanceDuration, // Use the same duration for shrinking
+          duration: disappearanceDuration,
           easing: 'linear',
           begin: () => {
-            const noteName = key; // Get the note name from the target element
-            const audioFilePath = `/sax-notes/${encodeURIComponent(noteName)}.wav`; // Construct the path using the note name
-            console.log(audioFilePath);
+            const noteName = key;
+            const audioFilePath = `/sax-notes/${encodeURIComponent(noteName)}.wav`;
             const audio = new Audio(audioFilePath);
-            audio.volume = volume / 100; // Set the volume
             audio.currentTime = 3;
+            audio.volume = volume; // Set volume
             audio.play().catch((error) => {
               console.log('Audio playback failed:', error);
             });
-        
-            // Store audio object if you need to pause or reset it later
             rectangle.audio = audio;
           },
           complete: (anim) => {
             const endTime = performance.now();
             const elapsedTime = endTime - startTime;
             console.log(`Note started to disappear at ${startTime} ms and took ${elapsedTime} ms to disappear.`);
-            
-            // Pause and reset audio if it exists
             if (anim.animatables[0].target.audio) {
               anim.animatables[0].target.audio.pause();
               anim.animatables[0].target.audio.currentTime = 0;
             }
-            
             rectangle.remove();
           }
         });
@@ -66,46 +58,28 @@ const CircleRectangleAnimation = ({ tutorial }) => {
     });
   };
 
-  const triggerAnimation = () => {
-    animateNotes(notes);
-  };
-
-  const animateNotes = (notes) => {
-    const baseInterval = 0; // Define a base interval of 200ms between each note
-    let timeCounter = 0;  
-    notes.forEach((note, index) => {
-      const noteName = note[0];
-      const noteDuration = parseFloat(note[1]);
-      setTimeout(() => {
-        triggerSingleAnimation(noteName, noteDuration);
-        console.log(`Animating note ${noteName} at index ${index}`);
-      }, ((60 / bpm) * timeCounter * 1000) + ((index + 1) * baseInterval)); // Adjust the delay based on the note duration and base interval
-      timeCounter += noteDuration;
-    });
-  };
-
   const triggerSingleAnimation = (noteName, noteDuration) => {
     const keysToAnimate = noteMap[noteName] || [];
     keysToAnimate.forEach(key => {
       const targetElement = document.getElementById(key);
-      if (targetElement) { // Ensure the target element exists
+      if (targetElement) {
         const svgNS = "http://www.w3.org/2000/svg";
         const rectangle = document.createElementNS(svgNS, 'rect');
-        const initialWidth = 250 * noteDuration; // Adjust width based on note duration
-        const disappearanceDuration = (60 / bpm) * 1000 * noteDuration; // Calculate disappearance duration based on BPM
-        const speed = initialWidth / disappearanceDuration; // Calculate the speed
+        const initialWidth = 250 * noteDuration;
+        const disappearanceDuration = (60 / (tutorial?.bpm || 90)) * 1000 * noteDuration;
+        const speed = initialWidth / disappearanceDuration;
         rectangle.setAttribute('width', `${initialWidth}`);
         rectangle.setAttribute('height', '25');
         rectangle.setAttribute('fill', 'white');
         rectangle.setAttribute('rx', '15');
-        rectangle.setAttribute('style', 'filter: drop-shadow(0 0 5px white);'); // Add a slight glow
+        rectangle.setAttribute('style', 'filter: drop-shadow(0 0 5px white);');
         
         const cy = targetElement.getAttribute('cy');
         if (cy) {
-          rectangle.setAttribute('y', cy - 15); // Use the `cy` attribute for the y position
+          rectangle.setAttribute('y', cy - 15);
         } else {
           const { top } = targetElement.getBoundingClientRect();
-          rectangle.setAttribute('y', `${top + window.scrollY + 5}`); // Fallback if `cy` is not available
+          rectangle.setAttribute('y', `${top + window.scrollY + 5}`);
         }
         rectangle.setAttribute('x', `${window.innerWidth + 2000}`);
   
@@ -114,6 +88,20 @@ const CircleRectangleAnimation = ({ tutorial }) => {
       } else {
         console.warn(`Element with ID ${key} is out of bounds.`);
       }
+    });
+  };
+
+  const animateNotes = (notes) => {
+    const baseInterval = 0;
+    let timeCounter = 0;  
+    notes.forEach((note, index) => {
+      const noteName = note[0];
+      const noteDuration = parseFloat(note[1]);
+      setTimeout(() => {
+        triggerSingleAnimation(noteName, noteDuration);
+        console.log(`Animating note ${noteName} at index ${index}`);
+      }, ((60 / (tutorial?.bpm || 90)) * timeCounter * 1000) + ((index + 1) * baseInterval));
+      timeCounter += noteDuration;
     });
   };
 
@@ -147,22 +135,27 @@ const CircleRectangleAnimation = ({ tutorial }) => {
     'rest': [],
   };
 
+  if (!tutorial) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="animation-container">
-      <div className="header">
-        <div className="info">
-          <h1>{title}</h1>
-          <h2>{author}</h2>
+    <div style={{ backgroundColor: '#000', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+      <div style={{ textAlign: 'center', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
+        <div>
+          <h1>{tutorial.title}</h1>
+          <h2>{tutorial.author}</h2>
         </div>
-        <button className="button" onClick={triggerAnimation}>Start Animation</button>
-        <div className="volume-control">
-          <label>Volume:</label>
+        <button className="button" onClick={() => animateNotes(tutorial.notes)}>Start Animation</button>
+        <div>
+          <label>Volume: </label>
           <input 
             type="range" 
             min="0" 
-            max="100" 
+            max="1" 
+            step="0.01" 
             value={volume} 
-            onChange={(e) => setVolume(e.target.value)} 
+            onChange={(e) => setVolume(parseFloat(e.target.value))} 
             className="slider" 
           />
         </div>
