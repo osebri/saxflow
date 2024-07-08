@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Slideshow from './Slideshow';
 import LibraryPage from './LibraryPage';
 import CircleRectangleAnimation from './CircleRectangleAnimation';
@@ -43,7 +43,6 @@ const App = () => {
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/my-studio/*" element={<MyStudio />} />
           <Route path="/practice-session" element={<TutorialsPage />} />
-          <Route path="/tutorial/:id" element={<CircleRectangleAnimation />} />
         </Routes>
       </div>
     </Router>
