@@ -26,7 +26,7 @@ const LibraryPage = () => {
       path: `${process.env.PUBLIC_URL}/saxflow/hymntun.pdf`,
       title: 'Sheet 1',
       author: 'Author 1',
-      preview: `${process.env.PUBLIC_URL}/saxflow/sh2.jpg`,
+      preview: `${process.env.PUBLIC_URL}/sh2.jpg`,
       category: 'scales',
       subcategory: 'major',
     },
