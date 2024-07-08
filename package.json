@@ -23,14 +23,13 @@
     "react-scripts": "5.0.1",
     "vexflow": "^4.2.4",
     "web-vitals": "^2.1.4",
-    "xml-js": "^1.6.11",
-    "homepage": "https://osebri.github.io/saxflow"
+    "xml-js": "^1.6.11"
   },
-    "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -54,5 +53,6 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"
-  }
+  },
+  "homepage": "https://osebri.github.io/saxflow"
 }
