@@ -1,0 +1,44 @@
+.my-studio nav {
+    display: flex;
+    justify-content: center;
+    background-color: #1f1f1f;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  
+  .my-studio nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .my-studio nav ul li {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+  }
+  
+  .my-studio nav ul li::after {
+    content: "";
+    border-right: 1px solid #ffffff;
+    height: 20px;
+    margin-left: 10px;
+  }
+  
+  .my-studio nav ul li:last-child::after {
+    content: none;
+  }
+  
+  .my-studio nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+  }
+  
+  .my-studio nav ul li a:hover {
+    color: #bbbbbb;
+  }
+  
