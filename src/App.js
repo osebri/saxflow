@@ -43,6 +43,7 @@ const App = () => {
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/my-studio/*" element={<MyStudio />} />
           <Route path="/practice-session" element={<TutorialsPage />} />
+          <Route path="/tutorial/:id" element={<CircleRectangleAnimation />} />
         </Routes>
       </div>
     </Router>
