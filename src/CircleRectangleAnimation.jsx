@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import anime from 'animejs';
+import './CircleRectangleAnimation.css';
 
-const CircleRectangleAnimation = () => {
-  const [notes, setNotes] = useState([]);
-  const [bpm, setBpm] = useState(90); // Default BPM value
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
+const CircleRectangleAnimation = ({ tutorial }) => {
+  const { title, author, notes, bpm } = tutorial;
+  const [volume, setVolume] = useState(50); // Default volume level
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/api/music_piece/');
-        setNotes(response.data.notes);
-        setBpm(response.data.bpm); // Set the BPM value from the response
-        setTitle(response.data.title);
-        setAuthor(response.data.author);
-      } catch (error) {
-        console.error('Error fetching notes:', error);
-      }
-    };
-
-    fetchNotes();
-  }, []);
+    if (notes.length > 0) {
+      animateNotes(notes);
+    }
+  }, [notes, bpm]);
 
   const animateRectangle = (rectangle, targetElement, speed, disappearanceDuration, key) => {
     const { top, left, width: targetWidth } = targetElement.getBoundingClientRect();
@@ -51,6 +39,7 @@ const CircleRectangleAnimation = () => {
             const audioFilePath = `/sax-notes/${encodeURIComponent(noteName)}.wav`; // Construct the path using the note name
             console.log(audioFilePath);
             const audio = new Audio(audioFilePath);
+            audio.volume = volume / 100; // Set the volume
             audio.currentTime = 3;
             audio.play().catch((error) => {
               console.log('Audio playback failed:', error);
@@ -159,18 +148,22 @@ const CircleRectangleAnimation = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#000', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <button onClick={triggerAnimation}>Start Animation</button>
-        <h1>{title}</h1>
-        <h2>{author}</h2>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-          <label>BPM:</label>
+    <div className="animation-container">
+      <div className="header">
+        <div className="info">
+          <h1>{title}</h1>
+          <h2>{author}</h2>
+        </div>
+        <button className="button" onClick={triggerAnimation}>Start Animation</button>
+        <div className="volume-control">
+          <label>Volume:</label>
           <input 
-            type="number" 
-            value={bpm} 
-            onChange={(e) => setBpm(e.target.value)} 
-            style={{ width: '60px', textAlign: 'center', border: 'none', outline: 'none', backgroundColor: '#333', color: 'white', borderRadius: '5px', padding: '5px', boxShadow: '0 0 10px white' }}
+            type="range" 
+            min="0" 
+            max="100" 
+            value={volume} 
+            onChange={(e) => setVolume(e.target.value)} 
+            className="slider" 
           />
         </div>
       </div>

@@ -7,10 +7,12 @@ import Metronome from './Metronome';
 import Tuner from './Tuner';
 import './Navbar.css';
 import './MyStudio.css';
+import TutorialsPage from './TutorialsPage';
+import { useLocation } from 'react-router-dom';
 
 const MyStudio = () => (
   <div className="my-studio">
-    <nav>
+    <nav className="studio-nav">
       <ul>
         <li><Link to="/my-studio/metronome">Metronome</Link></li>
         <li><Link to="/my-studio/tuner">Tuner</Link></li>
@@ -23,6 +25,13 @@ const MyStudio = () => (
     </Routes>
   </div>
 );
+
+const CircleRectangleAnimationWrapper = () => {
+  const location = useLocation();
+  const { tutorial } = location.state || { tutorial: {} };
+
+  return <CircleRectangleAnimation tutorial={tutorial} />;
+};
 
 const App = () => {
   return (
@@ -41,7 +50,8 @@ const App = () => {
           <Route path="/" element={<Slideshow />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/my-studio/*" element={<MyStudio />} />
-          <Route path="/practice-session" element={<CircleRectangleAnimation />} />
+          <Route path="/practice-session" element={<TutorialsPage />} />
+          <Route path="/practice-session/:title" element={<CircleRectangleAnimationWrapper />} />
         </Routes>
       </div>
     </Router>

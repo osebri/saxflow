@@ -24,7 +24,7 @@
     "vexflow": "^4.2.4",
     "web-vitals": "^2.1.4",
     "xml-js": "^1.6.11",
-    "homepage": "https://osebri.github.io/saxflow.github.io"
+    "homepage": "https://osebri.github.io/saxflow"
   },
     "scripts": {
     "predeploy": "npm run build",
