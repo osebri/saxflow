@@ -21,11 +21,12 @@ body {
   .next {
     cursor: pointer;
     position: absolute;
+    opacity: 0.8;
     top: 50%;
     width: auto;
     padding: 16px;
     margin-top: -22px;
-    color: white;
+    color: #151515;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -45,7 +46,7 @@ body {
   
   .prev:hover,
   .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #EDB900;
   }
   
   .buttons-container {

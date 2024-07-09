@@ -1,4 +1,8 @@
 /* Slider Styles */
+body {
+  overflow-x: hidden;
+}
+
 .slider {
     width: 200px;
     height: 8px;

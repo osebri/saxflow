@@ -1,57 +1,107 @@
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #1f1f1f;
-    border-bottom: 1px solid #333;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  }
-  
-  .navbar .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar .logo-img {
-    width: 100px; /* Increase the width of the logo */
-    height: auto;
-  }
-  
-  .navbar .nav-links {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .navbar .nav-links li {
-    display: flex;
-    align-items: center;
-    margin: 0 10px;
-    position: relative;
-  }
-  
-  .navbar .nav-links li::after {
-    content: "";
-    border-right: 1px solid #ffffff;
-    height: 100%; /* Make the line span the height of the navbar */
-    position: absolute;
-    right: -10px; /* Adjust based on the margin */
-  }
-  
-  .navbar .nav-links li:last-child::after {
-    content: none;
-  }
-  
-  .navbar .nav-links a {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 10px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .nav-links a:hover {
-    color: #bbbbbb;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #000000; /* Set navbar background to black */
+  border-bottom: 1px solid #333; /* Bottom border */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo-img {
+  width: 100px; /* Increase the width of the logo */
+  height: auto;
+  background: transparent; /* Ensure logo background is transparent */
+}
+
+.navbar .nav-links {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .nav-links li {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navbar .nav-links a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .nav-links a:hover {
+  background-color: #EDB900; /* Change background color on hover */
+  color: #000;
+}
+
+.navbar .nav-links a:not(:last-child)::after {
+  content: "";
+  border-right: 1px solid #000000; /* Keep border color black */
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* MyStudio tab styles */
+.studio-nav {
+  display: flex;
+  align-items: center;
+  background-color: #000000; /* Match navbar background */
+  border-bottom: 1px solid #333; /* Bottom border */
+}
+
+.studio-nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.studio-nav li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+}
+
+.studio-nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.studio-nav a:hover {
+  background-color: #EDB900; /* Change background color on hover */
+  color: #000;
+}
+
+.studio-nav li:not(:last-child)::after {
+  content: "";
+  border-right: 1px solid #000000; /* Keep border color black */
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
