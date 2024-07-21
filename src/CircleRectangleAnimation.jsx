@@ -5,9 +5,7 @@ const CircleRectangleAnimation = ({ tutorial }) => {
   const [volume, setVolume] = useState(1);
 
   useEffect(() => {
-    if (tutorial && tutorial.notes) {
-      animateNotes(tutorial.notes);
-    }
+    // Animation will be triggered by the button click, no need to automatically start it here
   }, [tutorial]);
 
   const animateRectangle = (rectangle, targetElement, speed, disappearanceDuration, key) => {
