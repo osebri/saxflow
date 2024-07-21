@@ -3,22 +3,27 @@ import './FaqPage.css';
 
 const faqs = {
   en: [
-    { question: "What is SaxFlow?", answer: "SaxFlow is an online application and learning community for saxophone players. It offers features such as a metronome, tuner, comprehensive tutorials at the user's preferred pace, and a large library of music sheets." },
-    { question: "How do I use the Tuner?", answer: "The tuner offers a wide range of features. The simplest way to use it is to choose the transposition and click on 'Start'. The animation will change color from red (out of tune) to green (perfectly tuned), with a hint indicating whether you should tune higher or lower." },
-    { question: "How do I use the Metronome?", answer: "The metronome feature can be used by setting a BPM, time signature, and rhythmic subdivision. Additionally, there is an animation of a metronome on the side that provides visual cues for the rhythm." },
-    { question: "How do I use the Tutorials page?", answer: "Start by selecting a music piece you want to play along to. Then, start the animation and play the keys exactly as they are displayed on the screen." },
+    { question: "What is SaxFlow?", answer: "SaxFlow is an online application and learning community for saxophone players that allows user access to features such as a Metronome and a Tuner, provides comprehensive tutorials at the user's preferred pace as well as a large library of music sheets." },
+    { question: "How can I sign up?", answer: "Click on the 'Sign Up' button on the top right corner and fill out the form." },
+    { question: "How to use the Tuner?", answer: "The Tuner offers a wide range of features. The most simple way to use it is to choose the transposition and click on start. The animation would change color ranging from red for out of tune to green for perfectly tuned. A clue would also be given on whether you should be tuning higher or lower." },
+    { question: "How to use the Metronome?", answer: "The metronome feature is usable through setting a bpm, a time signature as well as a rhythmic subdivision. On the side, there is an animation of a metronome that gives visual clues when it comes to the rhythm." },
+    { question: "How to use the tutorials page?", answer: "Start by selecting a music piece you want to play along to, then start the animation and play the keys exactly as they are displayed on the screen." }
   ],
   it: [
-    { question: "Cos'è SaxFlow?", answer: "SaxFlow è un'applicazione online e una comunità di apprendimento per sassofonisti. Offre funzionalità come un metronomo, un accordatore, tutorial completi al ritmo preferito dall'utente e una vasta biblioteca di spartiti musicali." },
-    { question: "Come si usa l'accordatore?", answer: "L'accordatore offre una vasta gamma di funzionalità. Il modo più semplice per utilizzarlo è scegliere la trasposizione e fare clic su 'Start'. L'animazione cambierà colore dal rosso (stonato) al verde (perfettamente accordato), con un'indicazione se è necessario accordare più alto o più basso." },
-    { question: "Come si usa il metronomo?", answer: "La funzionalità del metronomo può essere utilizzata impostando un BPM, una firma temporale e una suddivisione ritmica. Inoltre, c'è un'animazione di un metronomo sul lato che fornisce indicazioni visive per il ritmo." },
-    { question: "Come si usa la pagina dei tutorial?", answer: "Inizia selezionando un brano musicale che vuoi suonare. Successivamente, avvia l'animazione e suona le note esattamente come vengono visualizzate sullo schermo." },
+    { question: "Cos'è SaxFlow?", answer: "SaxFlow è una piattaforma online per gli appassionati di sassofono che consente agli utenti di accedere a funzionalità come un metronomo e un accordatore, fornisce tutorial completi al ritmo preferito dall'utente e una vasta biblioteca di spartiti musicali." },
+    { question: "Come posso iscrivermi?", answer: "Clicca sul pulsante 'Iscriviti' in alto a destra e compila il modulo." },
+    { question: "Come usare l'accordatore?", answer: "L'accordatore offre una vasta gamma di funzionalità. Il modo più semplice per usarlo è scegliere la trasposizione e fare clic su start. L'animazione cambierà colore dal rosso per non accordato al verde per perfettamente accordato. Viene anche fornito un suggerimento su se devi accordare più alto o più basso." },
+    { question: "Come usare il metronomo?", answer: "La funzione del metronomo è utilizzabile impostando un bpm, una firma del tempo e una suddivisione ritmica. Sul lato c'è un'animazione di un metronomo che fornisce indizi visivi sul ritmo." },
+    { question: "Come usare la pagina dei tutorial?", answer: "Inizia selezionando un brano musicale che vuoi suonare, quindi avvia l'animazione e suona le note esattamente come sono visualizzate sullo schermo." }
   ],
 };
 
 const FaqPage = () => {
   const [language, setLanguage] = useState('en');
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [email, setEmail] = useState('');
+  const [question, setQuestion] = useState('');
+  const [message, setMessage] = useState('');
 
   const toggleLanguage = () => {
     setLanguage((prevLanguage) => (prevLanguage === 'en' ? 'it' : 'en'));
@@ -28,12 +33,34 @@ const FaqPage = () => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleQuestionChange = (e) => {
+    setQuestion(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateEmail(email)) {
+      setMessage(language === 'en' ? 'You will hear from us soon!' : 'Presto riceverai nostre notizie!');
+    } else {
+      setMessage(language === 'en' ? 'Invalid Email' : 'Email non valida');
+    }
+  };
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   return (
     <div className="faq-page">
       <button onClick={toggleLanguage} aria-label="Toggle language">
         {language === 'en' ? 'Italiano' : 'English'}
       </button>
-      <h1>{language === 'en' ? 'Frequently Asked Questions' : 'Domande Frequenti'}</h1>
+      <h1 className='faqhead'>{language === 'en' ? 'Frequently Asked Questions' : 'Domande Frequenti'}</h1>
       <ul>
         {faqs[language].map((faq, index) => (
           <li key={index}>
@@ -41,14 +68,11 @@ const FaqPage = () => {
               onClick={() => toggleAnswer(index)}
               aria-expanded={expandedIndex === index}
               aria-controls={`faq-answer-${index}`}
-              id={`faq-question-${index}`}
             >
               {faq.question}
             </button>
             <div
               id={`faq-answer-${index}`}
-              role="region"
-              aria-labelledby={`faq-question-${index}`}
               style={{ display: expandedIndex === index ? 'block' : 'none' }}
               aria-hidden={expandedIndex !== index}
             >
@@ -57,6 +81,28 @@ const FaqPage = () => {
           </li>
         ))}
       </ul>
+      <div className="faq-form">
+        <h2>{language === 'en' ? 'Ask a Question' : 'Fai una domanda'}</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">{language === 'en' ? 'Email:' : 'Email:'}</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+          <label htmlFor="question">{language === 'en' ? 'Question:' : 'Domanda:'}</label>
+          <textarea
+            id="question"
+            value={question}
+            onChange={handleQuestionChange}
+            required
+          />
+          <button type="submit">{language === 'en' ? 'Submit' : 'Invia'}</button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };
