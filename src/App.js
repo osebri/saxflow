@@ -2,12 +2,14 @@ import React from 'react';
 import { HashRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Slideshow from './Slideshow';
 import LibraryPage from './LibraryPage';
-import CircleRectangleAnimationWrapper from './CircleRectangleAnimationWrapper.jsx';
+import CircleRectangleAnimation from './CircleRectangleAnimation';
 import Metronome from './Metronome';
 import Tuner from './Tuner';
+import TutorialsPage from './TutorialsPage';
+import FaqPage from './FaqPage'; // Import the FAQ page
 import './Navbar.css';
 import './MyStudio.css';
-import TutorialsPage from './TutorialsPage';
+import { useLocation } from 'react-router-dom';
 
 const MyStudio = () => (
   <div className="my-studio">
@@ -24,6 +26,13 @@ const MyStudio = () => (
     </Routes>
   </div>
 );
+
+const CircleRectangleAnimationWrapper = () => {
+  const location = useLocation();
+  const { tutorial } = location.state || { tutorial: {} };
+
+  return <CircleRectangleAnimation tutorial={tutorial} />;
+};
 
 const App = () => {
   return (
@@ -43,7 +52,8 @@ const App = () => {
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/my-studio/*" element={<MyStudio />} />
           <Route path="/practice-session" element={<TutorialsPage />} />
-          <Route path="/tutorial/:id" element={<CircleRectangleAnimationWrapper />} />
+          <Route path="/tutorial/:index" element={<CircleRectangleAnimationWrapper />} />
+          <Route path="/faq" element={<FaqPage />} />
         </Routes>
       </div>
     </Router>

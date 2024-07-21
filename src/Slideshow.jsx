@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Slideshow.css';
 
 const Slideshow = () => {
@@ -9,6 +10,7 @@ const Slideshow = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   const nextSlide = () => {
     setCurrentIndex((currentIndex + 1) % images.length);
@@ -16,6 +18,10 @@ const Slideshow = () => {
 
   const prevSlide = () => {
     setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+  };
+
+  const goToFaq = () => {
+    navigate('/faq');
   };
 
   return (
@@ -28,8 +34,10 @@ const Slideshow = () => {
         &#10095;
       </button>
       <div className="buttons-container">
-        <button className="slideshow-button">Join Our Community</button>
-        <button className="slideshow-button">SaxFlow for Teachers</button>
+        <button className="slideshow-button" onClick={goToFaq}>
+          Frequently Asked Questions
+        </button>
+        <button className="slideshow-button">SaxFlow for Teachers (Coming Soon)</button>
       </div>
     </div>
   );

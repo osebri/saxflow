@@ -1,0 +1,51 @@
+.faq-page {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  button {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #EDB900;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  li button {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  li div {
+    padding: 10px;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  
