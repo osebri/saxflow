@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './LibraryPage.css';
+import './TutorialsPage.css';
 
 const TutorialsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const tutorials = [
     {
-      title: 'Jazz Tutorial',
+      title: 'Jazz Tutorial 1',
       author: 'Author 1',
-      notes: [['C4', 1.0], ['D4', 0.5], ['E4', 0.25]],
+      notes: [['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25],['C4', 1.0], ['D4', 0.5], ['E4', 0.25]],
       bpm: 90,
       preview: `${process.env.PUBLIC_URL}/sh2.jpg`,
     },
     {
-      title: 'Pop Tutorial',
+      title: 'Pop Tutorial 1',
       author: 'Author 2',
-      notes: [['E4', 1.0], ['F4', 0.5], ['G4', 0.25]],
+      notes: [['E4', 1.0], ['F4', 0.5], ['G4', 0.25],['E4', 1.0], ['F4', 0.5], ['G4', 0.25],['E4', 1.0], ['F4', 0.5], ['G4', 0.25],['E4', 1.0], ['F4', 0.5], ['G4', 0.25],['E4', 1.0], ['F4', 0.5], ['G4', 0.25]],
       bpm: 100,
       preview: `${process.env.PUBLIC_URL}/sh3.jpg`,
     },
     {
-      title: 'Classical Tutorial',
+      title: 'Classical Tutorial 1',
       author: 'Author 3',
-      notes: [['G4', 1.0], ['A4', 0.5], ['B4', 0.25]],
+      notes: [['G4', 1.0], ['A4', 0.5], ['B4', 0.25],['G4', 1.0], ['A4', 0.5], ['B4', 0.25],['G4', 1.0], ['A4', 0.5], ['B4', 0.25],['G4', 1.0], ['A4', 0.5], ['B4', 0.25],['G4', 1.0], ['A4', 0.5], ['B4', 0.25]],
       bpm: 80,
       preview: `${process.env.PUBLIC_URL}/sh4.jpg`,
     },
